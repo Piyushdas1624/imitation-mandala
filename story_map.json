@@ -1,0 +1,133 @@
+{
+  "project": "The Imitation Mandala MVP",
+  "releases": [
+    {"name": "Release 1", "description": "MVP Core Simulation & Gemini Integration"},
+    {"name": "Release 2", "description": "Immersive Audiovisual Additions & Edge-TTS"}
+  ],
+  "epics": [
+    {
+      "name": "Visuals & WebGL Core",
+      "features": [
+        {
+          "name": "Particle Swarm Rendering",
+          "stories": [
+            {
+              "name": "Orbiting WebGL Swarm",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 3,
+              "description": "Render 2,500 particles in three-dimensional space using Three.js points mesh."
+            },
+            {
+              "name": "Geometry Morphing",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 5,
+              "description": "Interpolate particle positions from chaotic orbits into a 3D Nautilus DNA spiral on lock."
+            },
+            {
+              "name": "Color & Velocity Mutation",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 3,
+              "description": "Dynamically shift particle color themes and orbital velocities based on AI emotional output."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Audio & Sound Synthesis",
+      "features": [
+        {
+          "name": "Web Audio Synth Engine",
+          "stories": [
+            {
+              "name": "Ambient Bass Drone",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 3,
+              "description": "Generate a continuous 55Hz detuned synth hum to represent the machine core energy."
+            },
+            {
+              "name": "Harmonic Proximity Sweeps",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 2,
+              "description": "Increase lowpass filter frequency cutoffs as the user adjusts sliders closer to targets."
+            },
+            {
+              "name": "Convergence Chime Chords",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 3,
+              "description": "Fire cascading arpeggiated tri-oscillator chime chords when vectors align at 73, 45, 19."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Narrative & HUD Flow",
+      "features": [
+        {
+          "name": "Boot & Inception HUD",
+          "stories": [
+            {
+              "name": "Autoplay Security Gate",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 2,
+              "description": "Render terminal overlay requiring user interaction to instantiate browser AudioContext."
+            },
+            {
+              "name": "Typewriter Lore Slideshow",
+              "priority": "should",
+              "release": "Release 2",
+              "points": 3,
+              "description": "Present 4-step lore screen with typing animations and narrative spoken voice-overs."
+            },
+            {
+              "name": "Oscilloscope Voice Bar",
+              "priority": "should",
+              "release": "Release 2",
+              "points": 2,
+              "description": "Render reactive flickering bars at HUD bottom indicating voice playback activity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AI Sentience & Dialogue",
+      "features": [
+        {
+          "name": "Secure Gateway & TTS",
+          "stories": [
+            {
+              "name": "Gemini Proxy Endpoint",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 5,
+              "description": "Create secure serverless route api/chat.js to call Gemini 2.0 and sanitize JSON outputs."
+            },
+            {
+              "name": "Microsoft Neural TTS",
+              "priority": "should",
+              "release": "Release 2",
+              "points": 5,
+              "description": "Create serverless route api/tts.js using node-edge-tts to stream high-fidelity neural voices."
+            },
+            {
+              "name": "Client TTS Fallback",
+              "priority": "must",
+              "release": "Release 1",
+              "points": 2,
+              "description": "Configure browser speechSynthesis fallback if serverless audio endpoint times out."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

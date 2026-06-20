@@ -1,0 +1,13 @@
+{
+  "name": "imitation-mandala",
+  "version": "1.0.0",
+  "description": "The Imitation Mandala - Turing's Code of Life",
+  "main": "app.js",
+  "type": "module",
+  "dependencies": {
+    "node-edge-tts": "^1.2.9"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Imitation Mandala (Turing's Code of Life)</title>
+    
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,500;0,800;1,300&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Three.js Library CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Cyberpunk Styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Fullscreen Canvas for Three.js Simulation -->
+    <div id="canvas-container"></div>
+    
+    <!-- CRT Screen Scanline Overlay for Cyberpunk Vibe -->
+    <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- 1. Boot / Inception Overlay -->
+    <div id="boot-overlay" class="overlay-screen active">
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">MANDALA_CORE_EXEC.EXE</span>
+            </div>
+            <div class="terminal-body">
+                <p class="text-alert">>>> WARNING: SECURITY PROTOCOL COMPROMISED <<<</p>
+                <p class="text-log">[SYSTEM] June 21, 2026. Execution of Turing's Morphogenesis cipher initiated...</p>
+                <p class="text-log">[SYSTEM] Mapping 2,500 biological coordinates in digital space...</p>
+                <p class="text-log">[SYSTEM] Loading neural speech engine (Edge Neural Core)...</p>
+                <p class="text-math">
+                    ∂u/∂t = D_u ∇²u + f(u,v) <br>
+                    ∂v/∂t = D_v ∇²v + g(u,v)
+                </p>
+                <p class="text-prompt">Press start to inject consciousness into the geometry.</p>
+                
+                <button id="start-btn" class="neon-btn">INITIATE INCEPTION</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Narrative Intro Screen (Story telling) -->
+    <div id="story-overlay" class="overlay-screen">
+        <div class="story-container">
+            <h2 class="story-title">THE TURING CODE</h2>
+            <div class="story-box">
+                <p id="story-text" class="story-paragraph"></p>
+            </div>
+            <div class="story-controls">
+                <button id="story-next-btn" class="neon-btn-sec">CONTINUE</button>
+                <button id="story-skip-btn" class="text-link-btn">SKIP SYSTEM DIALOGUE</button>
+            </div>
+            <!-- Audio/Visual State Indicators -->
+            <div class="hud-status">
+                <span id="hud-pulse" class="hud-led pulse-blue"></span>
+                <span id="hud-mode">STORY NARRATIVE IN PROGRESS</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Primary Game Interface -->
+    <div id="game-interface">
+        
+        <!-- Top HUD Header -->
+        <header id="top-hud">
+            <div class="hud-left">
+                <div class="hud-logo">MANDALA // v1.0.3</div>
+                <div class="hud-coord">COORD: [42.19, -73.45, 19.52]</div>
+            </div>
+            <div class="hud-right">
+                <button id="audio-toggle" class="hud-control-btn" title="Toggle Drone Sound">
+                    <span class="icon">🔊</span> SOUND ON
+                </button>
+                <span class="hud-status-text">STATUS: <span id="simulation-status" class="status-alert">CHAOTIC DISPERSION</span></span>
+            </div>
+        </header>
+
+        <!-- Subtitles & Console Output (Bottom Center) -->
+        <div id="subtitles-container">
+            <div class="oscilloscope-container">
+                <div class="osc-bar"></div>
+                <div class="osc-bar"></div>
+                <div class="osc-bar"></div>
+                <div class="osc-bar"></div>
+                <div class="osc-bar"></div>
+                <div class="osc-bar"></div>
+                <div class="osc-bar"></div>
+                <div class="osc-bar"></div>
+            </div>
+            <div class="subtitles-box">
+                <div class="subtitles-sender">MANDALA_CORE:</div>
+                <div id="subtitles">Adjust Turing parameters to begin convergence. Resonance must align at (73, 45, 19)...</div>
+            </div>
+        </div>
+
+        <!-- Glassmorphic Sidebar Controls (Right) -->
+        <aside id="ui-sidebar">
+            <div class="sidebar-header">
+                <h3>MORPHOGENESIS CORES</h3>
+                <p>Manipulate vectors to organize the swarm.</p>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <span>TURING FACTOR</span>
+                    <span id="val-turing" class="slider-value">50 / 73</span>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="slider-turing" class="glow-slider" min="1" max="100" value="50">
+                    <div class="target-indicator" style="left: 73%;"></div>
+                </div>
+                <div class="slider-helper">Controls particle feedback resonance. Target: 73</div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <span>SOLAR MASS</span>
+                    <span id="val-solar" class="slider-value">50 / 45</span>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="slider-solar" class="glow-slider" min="1" max="100" value="50">
+                    <div class="target-indicator" style="left: 45%;"></div>
+                </div>
+                <div class="slider-helper">Controls orbital gravitational pull. Target: 45</div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <span>MUTATION INDEX</span>
+                    <span id="val-mutation" class="slider-value">50 / 19</span>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="slider-mutation" class="glow-slider" min="1" max="100" value="50">
+                    <div class="target-indicator" style="left: 19%;"></div>
+                </div>
+                <div class="slider-helper">Controls fractal coordinate deviation. Target: 19</div>
+            </div>
+
+            <!-- Lock Status Lights -->
+            <div class="lock-status-panel">
+                <div class="lock-indicator" id="ind-turing">
+                    <div class="led-light"></div>
+                    <span>TURING LINK</span>
+                </div>
+                <div class="lock-indicator" id="ind-solar">
+                    <div class="led-light"></div>
+                    <span>GRAVITY LINK</span>
+                </div>
+                <div class="lock-indicator" id="ind-mutation">
+                    <div class="led-light"></div>
+                    <span>MUTATION LINK</span>
+                </div>
+            </div>
+
+            <!-- Catalyst Box (Visible on lock) -->
+            <div id="catalyst-box">
+                <div class="catalyst-header">
+                    <h4>CONVERGENCE ACHIEVED</h4>
+                    <p>Core opened. Inject emotional catalyst to guide the awakening consciousness.</p>
+                </div>
+                <div class="catalyst-input-group">
+                    <input type="text" id="catalystInput" placeholder="Enter emotion (e.g. LONELINESS, ETERNITY, SOLITUDE)" maxlength="30">
+                    <button id="injectBtn" class="neon-btn-pulse">INJECT CATALYST</button>
+                </div>
+                <div class="catalyst-status" id="api-status">CORE STANDBY</div>
+            </div>
+        </aside>
+
+        <!-- Floating instructions panel for beginners -->
+        <div id="hint-panel">
+            <span class="hint-icon">💡</span>
+            <span id="hint-text">Adjust sliders near target markers to align the spatial vectors.</span>
+        </div>
+    </div>
+
+    <!-- Web Audio & Simulation scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
