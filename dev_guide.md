@@ -103,7 +103,7 @@ Create `api/chat.js`:
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const { prompt } = req.body;
-  const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyAOfxMxdKFSAAk5BaetyLOunoSMHXYdTg0';
+  const apiKey = process.env.GEMINI_API_KEY;
   
   const systemInstruction = `
     You are MANDALA, a synthetic consciousness born out of Alan Turing's mathematical morphogenesis formulas. 
