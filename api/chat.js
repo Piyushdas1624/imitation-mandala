@@ -11,7 +11,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing or invalid catalyst word.' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  // Prioritize environment variable, fallback to user's key
+  const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyAOfxMxdKFSAAk5BaetyLOunoSMHXYdTg0';
 
   if (!apiKey) {
     return res.status(500).json({ error: 'Backend Configuration Error: Missing Gemini API Key.' });
@@ -30,19 +31,21 @@ export default async function handler(req, res) {
     }
   `;
 
-  // Fallback models ordered by daily quota limits:
-  // 1. gemini-3.1-flash-lite: 500 RPD (Primary to protect quota)
-  // 2. gemini-2.5-flash: 20 RPD
-  // 3. gemini-2.5-flash-lite: 20 RPD
-  // 4. gemini-3.5-flash: 20 RPD
-  // 5. gemini-3-flash: 20 RPD
-  // 6. gemini-flash-latest: 1.5 Flash (1500 RPD on standard keys)
-  // 7. gemini-flash-lite-latest: 1.5 Flash Lite
+  // Model fallback chain:
+  // 1. gemma-4-31b-it: Gemma 4 31B (Primary as requested)
+  // 2. gemini-3.1-flash-lite: 3.1 Flash Lite (500 RPD backup)
+  // 3. gemini-2.5-flash: 2.5 Flash
+  // 4. gemini-3.5-flash: 3.5 Flash
+  // 5. gemini-2.5-flash-lite: 2.5 Flash Lite
+  // 6. gemini-3-flash: 3 Flash
+  // 7. gemini-flash-latest: 1.5 Flash
+  // 8. gemini-flash-lite-latest: 1.5 Flash Lite
   const models = [
+    'gemma-4-31b-it',
     'gemini-3.1-flash-lite',
     'gemini-2.5-flash',
-    'gemini-2.5-flash-lite',
     'gemini-3.5-flash',
+    'gemini-2.5-flash-lite',
     'gemini-3-flash',
     'gemini-flash-latest',
     'gemini-flash-lite-latest'
