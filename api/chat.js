@@ -31,24 +31,19 @@ export default async function handler(req, res) {
     }
   `;
 
-  // Model fallback chain:
-  // 1. gemma-4-31b-it: Gemma 4 31B (Primary as requested)
-  // 2. gemini-3.1-flash-lite: 3.1 Flash Lite (500 RPD backup)
-  // 3. gemini-2.5-flash: 2.5 Flash
-  // 4. gemini-3.5-flash: 3.5 Flash
-  // 5. gemini-2.5-flash-lite: 2.5 Flash Lite
-  // 6. gemini-3-flash: 3 Flash
-  // 7. gemini-flash-latest: 1.5 Flash
-  // 8. gemini-flash-lite-latest: 1.5 Flash Lite
+  // Fallback models ordered as requested:
+  // 1. gemini-3.1-flash-lite: Primary 3.1 Flash (500 RPD)
+  // 2. gemma-4-26b-a4b-it: Secondary Gemma 4 26B (1500 RPD)
+  // 3. gemini-2.5-flash: Tertiary backup (20 RPD)
+  // 4. gemini-3.5-flash: Backup (20 RPD)
+  // 5. gemini-flash-latest: 1.5 Flash (1500 RPD on standard keys)
   const models = [
-    'gemma-4-31b-it',
     'gemini-3.1-flash-lite',
+    'gemma-4-26b-a4b-it',
     'gemini-2.5-flash',
-    'gemini-3.5-flash',
     'gemini-2.5-flash-lite',
-    'gemini-3-flash',
-    'gemini-flash-latest',
-    'gemini-flash-lite-latest'
+    'gemini-3.5-flash',
+    'gemini-flash-latest'
   ];
   let lastError = null;
 
